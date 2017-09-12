@@ -1,4 +1,4 @@
-/* Engagement Tracker : by Terrill Couther */
+/* Section View Tracker v1.0 : by Terrill Couther */
 
 var engagementTracker = function() {
 	var thus = this;
@@ -14,10 +14,10 @@ var engagementTracker = function() {
 	this.callbacks = {};
 	this.sectionPosns = [];
 	
-	//HANDLERS
+	// HANDLERS ////////////////////////////////////////////////////
 	this.handleEngage = function(evt,cb) {
-		let callback = cb || function(){};
-		let item = evt.target;
+		var callback = cb || function(){};
+		var item = evt.target;
 		item.isEngaged = true;
 		item.countEngage = (item.countEngage) ? item.countEngage+1 : 1;
 		item.setAttribute('engaged','true');
@@ -26,11 +26,11 @@ var engagementTracker = function() {
 		callback();
 	};
 	this.handleUngage = function(evt) {
-		let item = evt.target;
+		var item = evt.target;
 		item.setAttribute('engage','false');
 	};
 
-	//GETTERS
+	// GETTERS ////////////////////////////////////////////////////
 	this.getSectionPositions = function() {
 		var positions = [];
 		function mapPositions(item) {
@@ -46,14 +46,12 @@ var engagementTracker = function() {
 		};
 	};
 
-	//SETTERS
+	// SETTERS ////////////////////////////////////////////////////
 	this.setEngagedSection = function() {
 		function inView(el) {
-			var elinfo;
 			var eloffsetOption = el.getAttribute(thus.sectionOffseter) || 4.5;
 			var eloffset = el.offsetHeight / parseInt(eloffsetOption);
-
-			elinfo = { "top":el.offsetTop + eloffset, "height":el.offsetHeight - (eloffset*2) };
+			var elinfo = { "top":el.offsetTop + eloffset, "height":el.offsetHeight - (eloffset*2) };
 			
 		    if (elinfo.top + elinfo.height < window.pageYOffset || elinfo.top > window.pageYOffset + window.innerHeight) {
 		        return false;
@@ -113,7 +111,7 @@ var engagementTracker = function() {
 		thus.sectionPosns = thus.getSectionPositions();
 	};
 
-	//INIT
+	// INIT ////////////////////////////////////////////////////
 	this.init = function() {
 		thus.setSections();
 		thus.setEvents();

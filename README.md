@@ -3,7 +3,7 @@
 The Section View Tracking Script monitors Y axis scroll events to signal page section engagement.
 Events listeners are set on sections that trigger when the section element is scrolled in view or out of view. 
 
-This functionality can be used to trigger animated effects, or asynchronous data fetching. 
+This functionality can be used to trigger animated effects, analytics data tracking, or asynchronous data fetching. 
 
 Events
 - "onEngaged" : When a section is in view or 'engaged'

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Section Engagement Detection</title>
+	</head>
+	<body>
+
+		<style>
+			/* Demo CSS - just necessary for demo */
+			body {
+				font-family:arial;
+				font-size: 18px;
+			}
+			.section { 
+				background-color: #CCC; 
+				min-height: 700px;
+				box-sizing: border-box;
+				padding: 20px;
+				margin-bottom: 15px;
+			}
+
+			/* The animation code */
+			@keyframes fadeup {
+			    0%   { transform : translate3d(0, 0, 0); }
+			    100% { opacity: 1; transform : translate3d(0, -10px, 0); animation-play-state: paused; }
+			}
+
+			/* The element to apply the animation to */
+			.section[engaged="true"] h2 {
+			    animation-name: fadeup;
+			    animation-duration: 2s;
+			    animation-iteration-count: 1;
+			    animation-fill-mode: forwards;
+			}
+
+			.section h2 {
+				opacity: 0;
+			}
+		</style>
+
+		<main>
+			<h1>Section Engagement Detector</h1>
+			<section data-engagement-id="sec1" data-engagement-offset="3" class="section">
+				<h2>Section 1</h2>
+			</section>
+			<section data-engagement-id="sec2" data-engagement-offset="3" class="section">
+				<h2>Section 2</h2>
+			</section>
+			<section data-engagement-id="sec3" data-engagement-offset="3" class="section">
+				<h2>Section 3</h2>
+			</section>
+			<section data-engagement-id="sec4" data-engagement-offset="3" class="section">
+				<h2>Section 4</h2>
+			</section>
+		</main>
+
+		<script src="js/engagetracker.js"></script>
+		<script>
+
+			//instantiate engamenent detector on page
+			var engagement = new engagementTracker();
+			
+			window.onload = function(evt) {
+				//set section identification
+				engagement.sectionIdentifier = "data-engagement-id";
+				engagement.sectionOffseter = "data-engagement-offset";
+				engagement.sectionQuery = document.querySelectorAll("[data-engagement-id]");
+
+				//set callbacks for section engagement and disengagement events
+				//console log used to demonstrate events
+				engagement.callbacks = {
+					"sec2" : {
+						"onEngaged" : function(evt){
+							console.log('engaged 2');
+						},
+						"onUngaged" : function(evt){
+							console.log('ungaged 2');
+						}
+					},
+					"sec4" : {
+						"onEngaged" : function(evt){
+							if ( this.countEngage == 1 ) {
+								console.log('engaged 4');
+							}
+						},
+						"onUngaged" : function(evt){
+							console.log('ungaged 4');
+						}
+					}
+				};
+
+				//initialize engagement detection
+				engagement.init();
+			};
+
+		</script>
+
+	</body>
+</html>
